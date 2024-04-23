@@ -15,7 +15,6 @@ class TuitionClassController extends Controller
     {
         $tuitionClasses = TuitionClass::all();
 
-        dd($tuitionClasses[0]);
         return view('tuitionClasses.index', compact('tuitionClasses'));
     }
 
@@ -24,7 +23,7 @@ class TuitionClassController extends Controller
      */
     public function create()
     {
-        //
+        return view('tuitionClasses.create');
     }
 
     /**

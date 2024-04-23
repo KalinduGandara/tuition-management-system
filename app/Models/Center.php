@@ -9,6 +9,8 @@ class Center extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'address'];
+
     public function tuitionClasses()
     {
         return $this->hasMany(TuitionClass::class);

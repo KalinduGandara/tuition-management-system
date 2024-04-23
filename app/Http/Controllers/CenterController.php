@@ -22,7 +22,7 @@ class CenterController extends Controller
      */
     public function create()
     {
-        //
+        return view('centers.create');
     }
 
     /**
@@ -30,7 +30,9 @@ class CenterController extends Controller
      */
     public function store(StoreCenterRequest $request)
     {
-        //
+        $data = $request->validated();
+        Center::create($data);
+        return redirect()->route('centers.index')->with('success', 'Center created successfully.');
     }
 
     /**
@@ -38,7 +40,8 @@ class CenterController extends Controller
      */
     public function show(Center $center)
     {
-        //
+        $tuitionClasses = $center->tuitionClasses;
+        return view('centers.show', compact('center', 'tuitionClasses'));
     }
 
     /**
@@ -46,7 +49,7 @@ class CenterController extends Controller
      */
     public function edit(Center $center)
     {
-        //
+        return view('centers.edit', compact('center'));
     }
 
     /**
@@ -54,7 +57,10 @@ class CenterController extends Controller
      */
     public function update(UpdateCenterRequest $request, Center $center)
     {
-        //
+        // dd($request);
+        $data = $request->validated();
+        $center->update($data);
+        return to_route('centers.index')->with('success', 'Center updated successfully.');
     }
 
     /**
