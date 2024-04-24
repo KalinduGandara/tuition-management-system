@@ -68,6 +68,11 @@ class CenterController extends Controller
      */
     public function destroy(Center $center)
     {
-        //
+        try {
+            $center->delete();
+            return redirect()->route('centers.index')->with('success', 'Center deleted successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Cannot delete th center ' . $center->name . ' because it has associated tuition classes.');
+        }
     }
 }

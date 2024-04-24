@@ -11,7 +11,7 @@ class UpdateTuitionClassRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class UpdateTuitionClassRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'grade' => ['sometimes', 'required', 'string', 'max:255'],
+            'year' => ['sometimes', 'required', 'integer'],
+            'center_id' => ['sometimes', 'required', 'exists:centers,id'],
         ];
     }
 }

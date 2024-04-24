@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('center_id')->constrained();
             $table->string('grade');
-            $table->string('year');
+            $table->year('year');
             $table->boolean('active')->default(true);
             $table->timestamps();
         });

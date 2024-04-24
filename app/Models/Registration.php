@@ -19,9 +19,9 @@ class Registration extends Model
         return $this->belongsTo(TuitionClass::class);
     }
 
-    public function tests()
+    public function testmarks()
     {
-        return $this->hasMany(Test::class);
+        return $this->hasMany(Testmark::class);
     }
 
     public function attendances()

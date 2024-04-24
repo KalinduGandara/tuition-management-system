@@ -22,7 +22,7 @@ class UpdateCenterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255', 'unique:centers,name,' . $this->center->id],
             'address' => ['required', 'string', 'max:255'],
         ];
     }

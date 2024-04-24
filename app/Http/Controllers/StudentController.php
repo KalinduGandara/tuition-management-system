@@ -13,7 +13,8 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        $students = Student::all();
+        return view('students.index', compact('students'));
     }
 
     /**
@@ -37,8 +38,28 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        //
+        $registrations = $student->registrations;
+        $tuitionClasses = $registrations->map(function ($registration) {
+            return $registration->tuitionClass;
+        })->sortByDesc(function ($tuitionClass) {
+            return $tuitionClass->year;
+        });
+        $activeTuitionClass = $registrations->firstWhere('active', true)->tuitionClass;
+
+        $testmarks = $registrations->flatMap(function ($registration) {
+            return $registration->testmarks->map(function ($testmark) {
+                return [
+                    'test' => $testmark->test,
+                    'mark' => $testmark,
+                ];
+            });
+        })->sortByDesc(function ($item) {
+            return $item['test']->date;
+        });
+
+        return view('students.show', compact('student', 'tuitionClasses', 'testmarks', 'activeTuitionClass'));
     }
+
 
     /**
      * Show the form for editing the specified resource.

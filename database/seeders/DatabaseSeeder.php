@@ -53,21 +53,25 @@ class DatabaseSeeder extends Seeder
             'student_index' => '1',
             'name' => 'Student 1',
             'grade' => '11',
+            'address' => 'address 1'
         ]);
         $student2 = Student::factory()->create([
             'student_index' => '2',
             'name' => 'Student 2',
             'grade' => '10',
+            'address' => 'address 2'
         ]);
         $student3 = Student::factory()->create([
             'student_index' => '3',
             'name' => 'Student 3',
             'grade' => '11',
+            'address' => 'address 3'
         ]);
         $student4 = Student::factory()->create([
             'student_index' => '4',
             'name' => 'Student 4',
             'grade' => '10',
+            'address' => 'address 4'
         ]);
 
         $registration1 = Registration::factory()->create([

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('student_id')->constrained();
             $table->foreignId('tuition_class_id')->constrained();
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }

@@ -7,10 +7,21 @@
                         <div class="text-white">
                             <div class="flex justify-between items-center">
                                 <div class="text-2xl font-bold">{{ $center->name }}</div>
-                                <a href="{{ route('centers.edit', $center) }}"
-                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                    Edit
-                                </a>
+                                <div>
+                                    <a href="{{ route('centers.edit', $center) }}"
+                                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">
+                                        Edit
+                                    </a>
+                                    <form action="{{ route('centers.destroy', $center) }}" method="POST"
+                                        class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                             <div>{{ $center->address }}</div>
                             <h2 class="text-xl font-bold mt-4">Tuition Classes</h2>

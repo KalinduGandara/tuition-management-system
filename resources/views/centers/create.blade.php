@@ -8,7 +8,7 @@
                         <div class="mt-4">
                             <label for="name" class="text-gray-300">Name:</label>
                             <input id="name" class="mt-1 block w-full border-gray-500 bg-gray-600 " type="text"
-                                name="name" autofocus />
+                                name="name" autofocus value="{{ old('name') }}" />
                             @error('name')
                                 <div class="text-red-500 mt-2 text-sm">{{ $message }}</div>
                             @enderror
@@ -16,7 +16,7 @@
                         <div class="mt-4">
                             <label for="address" class="text-gray-300">Address:</label>
                             <input id="address" class="mt-1 block w-full border-gray-500 bg-gray-600 " type="text"
-                                name="address" />
+                                name="address" value="{{ old('address') }}" />
                             @error('address')
                                 <div class="text-red-500 mt-2 text-sm">{{ $message }}</div>
                             @enderror

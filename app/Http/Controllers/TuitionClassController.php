@@ -39,7 +39,11 @@ class TuitionClassController extends Controller
      */
     public function show(TuitionClass $tuitionClass)
     {
-        //
+        $registrations = $tuitionClass->registrations;
+        $students = $registrations->map(function ($registration) {
+            return $registration->student;
+        });
+        return view('tuitionClasses.show', compact('tuitionClass', 'students'));
     }
 
     /**

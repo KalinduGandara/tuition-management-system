@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="bg-gray-800 py-12 text-white">
+    <div class="py-12 text-white">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="overflow-hidden bg-gray-700 p-4 sm:rounded-lg">
                 <div class="flex justify-end mb-4">
