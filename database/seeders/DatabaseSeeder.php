@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Attendance;
 use App\Models\Center;
+use App\Models\ClassDay;
 use App\Models\Payment;
 use App\Models\Registration;
 use App\Models\Student;
@@ -29,6 +30,7 @@ class DatabaseSeeder extends Seeder
             'password' => 'qwe',
         ]);
 
+        $centers = [];
         $center1 = Center::factory()->create([
             'name' => 'Oxygen',
             'address' => 'Oxygen Address',
@@ -37,154 +39,101 @@ class DatabaseSeeder extends Seeder
             'name' => 'Nitrogen',
             'address' => 'Nitrogen Address',
         ]);
+        $centers[] = $center1;
+        $centers[] = $center2;
 
-        $class1 = TuitionClass::factory()->create([
-            'grade' => '11',
-            'year' => '2021',
-            'center_id' => $center1->id,
-        ]);
-        $class2 = TuitionClass::factory()->create([
-            'grade' => '10',
-            'year' => '2021',
-            'center_id' => $center2->id,
-        ]);
+        $grades = ['11', '10', '9', '8', '7', '6'];
+        $testTypes = ['Multiple Master', 'Lesson Test Master', 'Term Test Master'];
+        $months = ['01', '02', '03', '04', '05'];
+        for ($center = 0; $center < 2; $center++) {
+            for ($grade = 0; $grade < 6; $grade++) {
+                $class = TuitionClass::factory()->create([
+                    'center_id' => $centers[$center]->id,
+                    'year' => '2024',
+                    'grade' => $grades[$grade],
+                ]);
+                $students = Student::factory(10)->create();
 
-        $student1 = Student::factory()->create([
-            'student_index' => '1',
-            'name' => 'Student 1',
-            'grade' => '11',
-            'address' => 'address 1'
-        ]);
-        $student2 = Student::factory()->create([
-            'student_index' => '2',
-            'name' => 'Student 2',
-            'grade' => '10',
-            'address' => 'address 2'
-        ]);
-        $student3 = Student::factory()->create([
-            'student_index' => '3',
-            'name' => 'Student 3',
-            'grade' => '11',
-            'address' => 'address 3'
-        ]);
-        $student4 = Student::factory()->create([
-            'student_index' => '4',
-            'name' => 'Student 4',
-            'grade' => '10',
-            'address' => 'address 4'
-        ]);
+                $tests = [];
+                for ($i = 0; $i < 5; $i++) {
+                    $LessonTestMasterTest = Test::factory()->create([
+                        'tuition_class_id' => $class->id,
+                        'date' => '2024-' . $months[$i] . '-15',
+                        'type' => 'Lesson Test Master',
+                    ]);
+                    $tests[] = $LessonTestMasterTest;
 
-        $registration1 = Registration::factory()->create([
-            'student_id' => $student1->id,
-            'tuition_class_id' => $class1->id,
-        ]);
-        $registration2 = Registration::factory()->create([
-            'student_id' => $student2->id,
-            'tuition_class_id' => $class2->id,
-        ]);
-        $registration3 = Registration::factory()->create([
-            'student_id' => $student3->id,
-            'tuition_class_id' => $class1->id,
-        ]);
-        $registration4 = Registration::factory()->create([
-            'student_id' => $student4->id,
-            'tuition_class_id' => $class2->id,
-        ]);
+                    for ($j = 0; $j < 4; $j++) {
+                        $date = '2024-' . $months[$i] . '-' . ($j * 7 + $grade);
+                        $MultipleMasterTest = Test::factory()->create([
+                            'tuition_class_id' => $class->id,
+                            'date' => $date,
+                            'type' => 'Multiple Master',
+                        ]);
+                        $tests[] = $MultipleMasterTest;
+                    }
+                }
+                $TermTestMasterTest = Test::factory()->create([
+                    'tuition_class_id' => $class->id,
+                    'date' => '2024-' . $months[4] . '-28',
+                    'type' => 'Term Test Master',
+                ]);
+                $tests[] = $TermTestMasterTest;
 
-        $payment1 = Payment::factory()->create([
-            'registration_id' => $registration1->id,
-            'amount' => 1000,
-            'month' => '01',
-            'date' => '2021-04-20',
-            'type' => 'Online',
-        ]);
-        $payment2 = Payment::factory()->create([
-            'registration_id' => $registration2->id,
-            'amount' => 2000,
-            'month' => '02',
-            'date' => '2021-04-20',
-            'type' => 'Physical',
-        ]);
-        $payment3 = Payment::factory()->create([
-            'registration_id' => $registration3->id,
-            'amount' => 3000,
-            'month' => '03',
-            'date' => '2021-04-20',
-            'type' => 'Online',
-        ]);
-        $payment4 = Payment::factory()->create([
-            'registration_id' => $registration4->id,
-            'amount' => 4000,
-            'month' => '04',
-            'date' => '2021-04-20',
-            'type' => 'Physical',
-        ]);
+                $classDays = [];
+                for ($i = 0; $i < 5; $i++) {
+                    for ($j = 0; $j < 4; $j++) {
+                        $classDay = ClassDay::factory()->create([
+                            'tuition_class_id' => $class->id,
+                            'date' => '2024-' . $months[$i] . '-' . ($j * 7 + $grade),
+                        ]);
+                        $classDays[] = $classDay;
+                    }
+                }
 
-        $test1 = Test::factory()->create([
-            'tuition_class_id' => $class1->id,
-            'name' => 'Test 1',
-            'date' => '2021-04-20',
-            'type' => 'Theory',
-        ]);
-        $test2 = Test::factory()->create([
-            'tuition_class_id' => $class2->id,
-            'name' => 'Test 2',
-            'date' => '2021-04-20',
-            'type' => 'Theory',
-        ]);
-        $test3 = Test::factory()->create([
-            'tuition_class_id' => $class1->id,
-            'name' => 'Test 3',
-            'date' => '2021-04-20',
-            'type' => 'Theory',
-        ]);
-        $test4 = Test::factory()->create([
-            'tuition_class_id' => $class2->id,
-            'name' => 'Test 4',
-            'date' => '2021-04-20',
-            'type' => 'Theory',
-        ]);
+                $registrations = [];
+                for ($i = 0; $i < 10; $i++) {
+                    $registration = Registration::factory()->create([
+                        'student_id' => $students[$i]->id,
+                        'tuition_class_id' => $class->id,
+                    ]);
 
-        $testMark1 = TestMark::factory()->create([
-            'registration_id' => $registration1->id,
-            'test_id' => $test1->id,
-            'mark' => 50,
-        ]);
-        $testMark2 = TestMark::factory()->create([
-            'registration_id' => $registration2->id,
-            'test_id' => $test2->id,
-            'mark' => 60,
-        ]);
-        $testMark3 = TestMark::factory()->create([
-            'registration_id' => $registration3->id,
-            'test_id' => $test3->id,
-            'mark' => 70,
-        ]);
-        $testMark4 = TestMark::factory()->create([
-            'registration_id' => $registration4->id,
-            'test_id' => $test4->id,
-            'mark' => 80,
-        ]);
+                    foreach ($tests as $test) {
+                        $randomMark = rand(0, 100);
+                        $testMark = TestMark::factory()->create([
+                            'registration_id' => $registration->id,
+                            'test_id' => $test->id,
+                            'mark' => $randomMark,
+                        ]);
+                    }
 
-        $attendance1 = Attendance::factory()->create([
-            'registration_id' => $registration1->id,
-            'date' => '2021-04-20',
-            'present' => true,
-        ]);
-        $attendance2 = Attendance::factory()->create([
-            'registration_id' => $registration2->id,
-            'date' => '2021-04-20',
-            'present' => true,
-        ]);
-        $attendance3 = Attendance::factory()->create([
-            'registration_id' => $registration3->id,
-            'date' => '2021-04-20',
-            'present' => false,
-        ]);
-        $attendance4 = Attendance::factory()->create([
-            'registration_id' => $registration4->id,
-            'date' => '2021-04-20',
-            'present' => true,
-        ]);
+                    foreach ($classDays as $classDay) {
+                        $attendance = Attendance::factory()->create([
+                            'registration_id' => $registration->id,
+                            'class_day_id' => $classDay->id,
+                        ]);
+                    }
+                    $registrations[] = $registration;
+                    for ($j = 0; $j < 4; $j++) {
+                        $randomDate = rand(1, 28);
+                        $rand = rand(0, 1);
+                        Payment::factory()->create([
+                            'registration_id' => $registration->id,
+                            'amount' => 1000,
+                            'month' => $months[$j],
+                            'date' => '2024-' . $months[$j + $rand] . '-' . $randomDate,
+                            'type' => 'Online',
+                        ]);
+                        Payment::factory()->create([
+                            'registration_id' => $registration->id,
+                            'amount' => 2000,
+                            'month' => $months[$j],
+                            'date' => '2024-' . $months[$j + $rand] . '-' . $randomDate,
+                            'type' => 'Physical',
+                        ]);
+                    }
+                }
+            }
+        }
     }
 }

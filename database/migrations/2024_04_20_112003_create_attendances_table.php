@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
             $table->foreignId('registration_id')->constrained();
-            $table->date('date');
-            $table->boolean('present');
+            $table->foreignId('class_day_id')->constrained()->cascadeOnDelete();
+            $table->string('status');
             $table->timestamps();
         });
     }

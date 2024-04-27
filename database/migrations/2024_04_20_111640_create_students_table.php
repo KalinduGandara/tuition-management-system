@@ -17,6 +17,13 @@ return new class extends Migration
             $table->string('student_index')->unique();
             $table->string('address');
             $table->string('grade');
+            $table->string('whatsapp_no');
+            $table->string('mother_name');
+            $table->string('mother_phone');
+            $table->string('mother_occupation');
+            $table->string('father_name');
+            $table->string('father_phone');
+            $table->string('father_occupation');
             $table->timestamps();
         });
     }

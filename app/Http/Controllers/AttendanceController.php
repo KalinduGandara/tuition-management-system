@@ -5,15 +5,28 @@ namespace App\Http\Controllers;
 use App\Models\Attendance;
 use App\Http\Requests\StoreAttendanceRequest;
 use App\Http\Requests\UpdateAttendanceRequest;
+use App\Models\TuitionClass;
+use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $date = $request->query('date');
+        $tuitionClass = $request->query('tuitionClass');
+
+        if ($date && $tuitionClass) {
+            $attendances = Attendance::where('date', $date)
+                ->where('tuition_class_id', $tuitionClass)
+                ->get();
+        } else {
+            $attendances = [];
+        }
+        $tuitionClasses = TuitionClass::all();
+        return view('attendances.index', compact('attendances', 'date', 'tuitionClass', 'tuitionClasses'));
     }
 
     /**
@@ -21,7 +34,7 @@ class AttendanceController extends Controller
      */
     public function create()
     {
-        //
+        return view('attendances.create');
     }
 
     /**

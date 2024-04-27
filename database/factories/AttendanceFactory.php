@@ -17,7 +17,7 @@ class AttendanceFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'status' => $this->faker->randomElement(['Present', 'Absent', 'Not Marked']),
         ];
     }
 }

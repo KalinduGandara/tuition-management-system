@@ -17,7 +17,11 @@ class PaymentFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'registration_id' => $this->faker->numberBetween(1, 10),
+            'amount' => $this->faker->randomElement([500, 600, 700, 800, 900]),
+            'date' => $this->faker->date(),
+            'month' => $this->faker->monthName(),
+            'type' => $this->faker->randomElement(['Online', 'Physical']),
         ];
     }
 }

@@ -17,7 +17,9 @@ class TestMarkFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'test_id' => $this->faker->numberBetween(1, 10),
+            'registration_id' => $this->faker->numberBetween(1, 10),
+            'mark' => $this->faker->numberBetween(0, 100),
         ];
     }
 }

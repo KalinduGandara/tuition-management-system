@@ -16,6 +16,10 @@ class TuitionClassFactory extends Factory
      */
     public function definition(): array
     {
-        return [];
+        return [
+            'center_id' => $this->faker->numberBetween(1, 10),
+            'grade' => $this->faker->randomElement(['11', '10', '9', '8', '7', '6']),
+            'year' => $this->faker->year(),
+        ];
     }
 }

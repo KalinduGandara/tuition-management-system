@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Registration>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ClassDay>
  */
-class RegistrationFactory extends Factory
+class ClassDayFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,7 @@ class RegistrationFactory extends Factory
     public function definition(): array
     {
         return [
-            'student_id' => $this->faker->numberBetween(1, 10),
-            'tuition_class_id' => $this->faker->numberBetween(1, 10),
+            //
         ];
     }
 }

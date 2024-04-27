@@ -13,4 +13,9 @@ class Attendance extends Model
     {
         return $this->belongsTo(Registration::class);
     }
+
+    public function classDay()
+    {
+        return $this->belongsTo(ClassDay::class);
+    }
 }

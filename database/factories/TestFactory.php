@@ -17,7 +17,9 @@ class TestFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'tuition_class_id' => $this->faker->numberBetween(1, 10),
+            'date' => $this->faker->date(),
+            'type' => $this->faker->randomElement(['Multiple Master', 'Lesson Test Master', 'Team Test Master']),
         ];
     }
 }
