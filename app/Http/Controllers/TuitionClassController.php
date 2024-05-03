@@ -43,6 +43,7 @@ class TuitionClassController extends Controller
 
     public function show(TuitionClass $tuitionClass)
     {
+        // TODO: refactor this
         $registrations = $tuitionClass->registrations;
         $classDays = $tuitionClass->classdays
             ->where('date', '>=', date('Y-m-01'))
