@@ -19,4 +19,9 @@ class TuitionClass extends Model
     {
         return $this->hasMany(Registration::class);
     }
+
+    public function classdays()
+    {
+        return $this->hasMany(ClassDay::class);
+    }
 }

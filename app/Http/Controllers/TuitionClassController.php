@@ -40,19 +40,28 @@ class TuitionClassController extends Controller
     /**
      * Display the specified resource.
      */
+
     public function show(TuitionClass $tuitionClass)
     {
         $registrations = $tuitionClass->registrations;
-        $students = $registrations->map(function ($registration) {
+        $classDays = $tuitionClass->classdays
+            ->where('date', '>=', date('Y-m-01'))
+            ->where('date', '<=', date('Y-m-t'))
+            ->sortBy('id')
+            ->take(5);
+        $classDays_ids = $classDays->pluck('id');
+
+        $students = $registrations->map(function ($registration) use ($classDays_ids) {
             $student = $registration->student;
             $student->payments = $registration->payments->where('month', date('m'));
-            $student->attendances = $registration->attendances->where('date', '>=', date('Y-m-01'))->where('date', '<=', date('Y-m-t'));
-            // $student->attendances = $registration->attendances->sortByDesc('date')->take(5);
+            $student->attendances = $registration->attendances->whereIn('class_day_id', $classDays_ids)->sortBy('class_day_id');
+
             return $student;
         });
-        // dd($students);
-        return view('tuitionClasses.show', compact('tuitionClass', 'students'));
+
+        return view('tuitionClasses.show', compact('tuitionClass', 'students', 'classDays'));
     }
+
 
     /**
      * Show the form for editing the specified resource.

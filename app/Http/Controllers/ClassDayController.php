@@ -75,9 +75,9 @@ class ClassDayController extends Controller
     public function destroy(ClassDay $classDay)
     {
         $tuitionClass = $classDay->tuitionClass;
-        if ($classDay->attendances()->where('status', 'Present')->exists()) {
-            return redirect()->back()->with('error', 'Cannot delete class day because some students are marked as present.');
-        }
+        // if ($classDay->attendances()->where('status', 'Present')->exists()) {
+        //     return redirect()->back()->with('error', 'Cannot delete class day because some students are marked as present.');
+        // }
 
         $classDay->delete();
 

@@ -19,11 +19,9 @@
                     <thead>
                         <tr>
                             <th>Student</th>
-                            <th>Week 1</th>
-                            <th>Week 2</th>
-                            <th>Week 3</th>
-                            <th>Week 4</th>
-                            <th>Week 5</th>
+                            @foreach ($classDays as $day)
+                                <th>{{ $day->date }}</th>
+                            @endforeach
                             <th>Physical Payment</th>
                             <th>Online Payment</th>
                         </tr>
@@ -33,7 +31,7 @@
                             <tr>
                                 <td class="text-center"><a href="{{ route('students.show', $student) }}"
                                         class="text-blue-500 hover:underline">{{ $student->name }}</a></td>
-                                @for ($i = 0; $i < 5; $i++)
+                                @for ($i = 0; $i < count($classDays); $i++)
                                     <td class="text-center">
                                         @php
                                             $attendance = $student->attendances->skip($i)->first();
