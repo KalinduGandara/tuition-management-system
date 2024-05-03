@@ -9,6 +9,12 @@ class Attendance extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'registration_id',
+        'class_day_id',
+        'status',
+    ];
+
     public function registration()
     {
         return $this->belongsTo(Registration::class);

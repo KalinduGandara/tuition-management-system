@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Attendance;
 use App\Http\Requests\StoreAttendanceRequest;
 use App\Http\Requests\UpdateAttendanceRequest;
+use App\Models\ClassDay;
 use App\Models\TuitionClass;
 use Illuminate\Http\Request;
 
@@ -18,15 +19,22 @@ class AttendanceController extends Controller
         $date = $request->query('date');
         $tuitionClass = $request->query('tuitionClass');
 
-        if ($date && $tuitionClass) {
-            $attendances = Attendance::where('date', $date)
-                ->where('tuition_class_id', $tuitionClass)
-                ->get();
+        if ($tuitionClass) {
+            if ($date) {
+                $classDays = ClassDay::where('date', $date)
+                    ->where('tuition_class_id', $tuitionClass)
+                    ->get();
+            } else {
+                $classDays = ClassDay::where('tuition_class_id', $tuitionClass)
+                    ->orderBy('date', 'desc')
+                    ->get();
+            }
         } else {
-            $attendances = [];
+            $classDays = [];
         }
+        // dd(empty($classDays));
         $tuitionClasses = TuitionClass::all();
-        return view('attendances.index', compact('attendances', 'date', 'tuitionClass', 'tuitionClasses'));
+        return view('attendances.index', compact('classDays', 'date', 'tuitionClass', 'tuitionClasses'));
     }
 
     /**

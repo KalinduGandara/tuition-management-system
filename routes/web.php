@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CenterController;
+use App\Http\Controllers\ClassDayController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\StudentController;
@@ -30,6 +31,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('students', StudentController::class);
     Route::resource('payments', PaymentController::class);
     Route::resource('attendances', AttendanceController::class);
+    Route::resource('classDays', ClassDayController::class);
+
+    Route::get('/tuitionClasses/{tuitionClass}/attendance', [TuitionClassController::class, 'showClassDays'])->name('tuitionClasses.attendance');
+    Route::get('/tuitionClasses/{tuitionClass}/attendance/create', [TuitionClassController::class, 'createClassDay'])->name('tuitionClasses.attendance.create');
+    Route::post('/tuitionClasses/{tuitionClass}/attendance/create', [TuitionClassController::class, 'storeClassDay'])->name('tuitionClasses.attendance.store');
 });
 
 require __DIR__ . '/auth.php';

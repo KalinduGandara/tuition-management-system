@@ -10,8 +10,8 @@ class ClassDay extends Model
     use HasFactory;
 
     protected $fillable = [
-        'class_id',
-        'registration_id',
+        'tuition_class_id',
+        'date',
     ];
 
     public function tuitionClass()
@@ -22,5 +22,10 @@ class ClassDay extends Model
     public function registration()
     {
         return $this->belongsTo(Registration::class);
+    }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
     }
 }

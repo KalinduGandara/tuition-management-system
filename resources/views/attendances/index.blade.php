@@ -19,7 +19,7 @@
                         @foreach ($tuitionClasses as $class)
                             <option value="{{ $class->id }}"
                                 {{ request('tuitionClass') == $class->id ? 'selected' : '' }}>
-                                {{ $class->center_name }} - {{ $class->grade }}
+                                {{ $class->center->name }} - {{ $class->grade }}
                             </option>
                         @endforeach
                     </select>
@@ -30,21 +30,23 @@
                     class="mt-6 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Add
                     Attendance</a>
             </form>
-            @if (empty($attendances))
-                <p class="dark:text-gray-200">No filters selected.</p>
+            @if (!$tuitionClass)
+                <p class="dark:text-gray-200">Select a class</p>
+            @elseif (empty($classDays))
+                <p class="dark:text-gray-200">No class days found</p>
             @else
                 <table class="table-auto dark:text-gray-200">
                     <thead>
                         <tr>
-                            <th class="px-4 py-2">Student Name</th>
-                            <th class="px-4 py-2">Index</th>
+                            <th class="px-4 py-2">Date</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($attendances as $attendance)
+                        @foreach ($classDays as $classDay)
                             <tr>
-                                <td class="border px-4 py-2">{{ $attendance->student->name }}</td>
-                                <td class="border px-4 py-2">{{ $attendance->student->index }}</td>
+                                <td class="border px-4 py-2">
+                                    <a href="classDays/{{ $classDay->id }}">{{ $classDay->date }}</a>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

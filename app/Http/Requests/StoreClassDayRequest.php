@@ -11,7 +11,7 @@ class StoreClassDayRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,7 @@ class StoreClassDayRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'date' => ['required', 'date', 'before_or_equal:today'],
         ];
     }
 }
