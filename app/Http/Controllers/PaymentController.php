@@ -32,8 +32,8 @@ class PaymentController extends Controller
      */
     public function store(StorePaymentRequest $request)
     {
-        // TODO: Implement store method
-        dd($request->all());
+        Payment::create($request->validated());
+        return redirect()->route('payments.create')->with('success', 'Payment created!');
     }
 
     /**

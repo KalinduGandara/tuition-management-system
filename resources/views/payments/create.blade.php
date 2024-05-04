@@ -96,21 +96,20 @@
             </div>
         </div>
     </div>
+</x-app-layout>
+<script>
+    $(document).ready(function() {
+        var students = $('#registration_id option');
 
-    <script>
-        $(document).ready(function() {
-            var students = $('#registration_id option');
+        $('#student_search').on('keyup', function() {
+            var value = $(this).val().toLowerCase();
 
-            $('#student_search').on('keyup', function() {
-                var value = $(this).val().toLowerCase();
-
-                $('#registration_id').html(students).find('option').each(function() {
-                    var text = $(this).text().toLowerCase();
-                    if (!text.includes(value)) {
-                        $(this).remove();
-                    }
-                });
+            $('#registration_id').html(students).find('option').each(function() {
+                var text = $(this).text().toLowerCase();
+                if (!text.includes(value)) {
+                    $(this).remove();
+                }
             });
         });
-    </script>
-</x-app-layout>
+    });
+</script>

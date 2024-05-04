@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use DateTime;
 
 class StudentController extends Controller
 {
@@ -14,6 +15,7 @@ class StudentController extends Controller
     public function index()
     {
         $students = Student::all();
+        // dd($students);
         return view('students.index', compact('students'));
     }
 
@@ -44,7 +46,6 @@ class StudentController extends Controller
         })->sortByDesc(function ($tuitionClass) {
             return $tuitionClass->year;
         });
-        $activeTuitionClass = $registrations->firstWhere('active', true)->tuitionClass;
 
         $testmarks = $registrations->flatMap(function ($registration) {
             return $registration->testmarks->map(function ($testmark) {
@@ -57,7 +58,16 @@ class StudentController extends Controller
             return $item['test']->date;
         });
 
-        return view('students.show', compact('student', 'tuitionClasses', 'testmarks', 'activeTuitionClass'));
+        $payments = $registrations->flatMap(function ($registration) {
+            return $registration->payments->map(function ($payment) {
+                $dateObj   = DateTime::createFromFormat('!m', $payment->month);
+                $payment->month = $dateObj->format('F'); // Convert month number to month name
+                return $payment;
+            });
+        })->sortByDesc(function ($payment) {
+            return $payment->id;
+        });
+        return view('students.show', compact('student', 'tuitionClasses', 'testmarks', 'payments'));
     }
 
 
