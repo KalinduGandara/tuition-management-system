@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('registration_id')->nullable()->constrained();
             $table->string('name');
             $table->string('student_index')->unique();
             $table->string('address');

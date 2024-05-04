@@ -24,6 +24,7 @@ class PaymentController extends Controller
     {
         $students = Student::all();
         return view('payments.create', compact('students'));
+        // return view('payments.create');
     }
 
     /**
@@ -31,7 +32,8 @@ class PaymentController extends Controller
      */
     public function store(StorePaymentRequest $request)
     {
-        //
+        // TODO: Implement store method
+        dd($request->all());
     }
 
     /**
