@@ -16,17 +16,37 @@
                 <p class="mb-2">Class Year: {{ $tuitionClass->year }}</p>
                 <div>
                     <h2 class="text-xl font-bold mb-4">Class Days</h2>
-                    <ul>
-                        @foreach ($classDays as $classDay)
-                            <li>
-                                <a href="{{ route('classDays.edit', $classDay) }}"
-                                    class="text-blue-500">{{ $classDay->date }}</a>
-                                @if ($classDay->date == now()->format('Y-m-d'))
-                                    (Today)
-                                @endif
-                            </li>
-                        @endforeach
-                    </ul>
+
+                    @php
+                        $grouped = $classDays->groupBy(function ($item, $key) {
+                            return \Carbon\Carbon::parse($item->date)->format('F Y');
+                        });
+                    @endphp
+
+                    @foreach ($grouped as $month => $days)
+                        <h2>{{ $month }}</h2>
+                        <table class="table-auto dark:text-gray-200">
+                            <thead>
+                                {{-- <tr>
+                                    @foreach ($days as $classDay)
+                                        <th class="px-4 py-2">Date</th>
+                                    @endforeach
+                                </tr> --}}
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    @foreach ($days as $classDay)
+                                        <td class="border px-4 py-2">
+                                            <a href="classDays/{{ $classDay->id }}">{{ $classDay->date }}</a>
+                                            @if ($classDay->date == now()->format('Y-m-d'))
+                                                (Today)
+                                            @endif
+                                        </td>
+                                    @endforeach
+                                </tr>
+                            </tbody>
+                        </table>
+                    @endforeach
                 </div>
             </div>
         </div>
