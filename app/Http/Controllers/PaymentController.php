@@ -32,7 +32,17 @@ class PaymentController extends Controller
      */
     public function store(StorePaymentRequest $request)
     {
-        Payment::create($request->validated());
+        $validated = $request->validated();
+        $exists = Payment::where('registration_id', $validated['registration_id'])
+            ->where('month', $validated['month'])
+            ->where('type', $validated['type'])
+            ->exists();
+
+        if ($exists) {
+            return redirect()->route('payments.create')->with('error', 'Payment of this type for this registration and month already exists!');
+        }
+
+        Payment::create($validated);
         return redirect()->route('payments.create')->with('success', 'Payment created!');
     }
 

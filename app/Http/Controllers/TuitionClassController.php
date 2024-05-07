@@ -130,12 +130,8 @@ class TuitionClassController extends Controller
     public function showPayments(TuitionClass $tuitionClass)
     {
         $registrations = $tuitionClass->registrations;
-        $payments = $registrations->map(function ($registration) {
-            return $registration->payments->where('month', date('m'))->first();
-        });
-        dd($payments);
 
-        return view('tuitionClasses.payment.show', compact('tuitionClass', 'payments'));
+        return view('tuitionClasses.payment.show', compact('tuitionClass', 'registrations'));
     }
 
     public function showTests(TuitionClass $tuitionClass)
