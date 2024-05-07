@@ -24,4 +24,9 @@ class TuitionClass extends Model
     {
         return $this->hasMany(ClassDay::class);
     }
+
+    public function tests()
+    {
+        return $this->hasMany(Test::class);
+    }
 }

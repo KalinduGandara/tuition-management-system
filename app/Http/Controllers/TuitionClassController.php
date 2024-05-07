@@ -126,4 +126,21 @@ class TuitionClassController extends Controller
 
         return redirect()->route('tuitionClasses.attendance', $tuitionClass);
     }
+
+    public function showPayments(TuitionClass $tuitionClass)
+    {
+        $registrations = $tuitionClass->registrations;
+        $payments = $registrations->map(function ($registration) {
+            return $registration->payments->where('month', date('m'))->first();
+        });
+        dd($payments);
+
+        return view('tuitionClasses.payment.show', compact('tuitionClass', 'payments'));
+    }
+
+    public function showTests(TuitionClass $tuitionClass)
+    {
+        $tests = $tuitionClass->tests;
+        return view('tuitionClasses.test.show', compact('tuitionClass', 'tests'));
+    }
 }

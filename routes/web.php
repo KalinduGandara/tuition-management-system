@@ -36,6 +36,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/tuitionClasses/{tuitionClass}/attendance', [TuitionClassController::class, 'showClassDays'])->name('tuitionClasses.attendance');
     Route::get('/tuitionClasses/{tuitionClass}/attendance/create', [TuitionClassController::class, 'createClassDay'])->name('tuitionClasses.attendance.create');
     Route::post('/tuitionClasses/{tuitionClass}/attendance/create', [TuitionClassController::class, 'storeClassDay'])->name('tuitionClasses.attendance.store');
+
+    Route::get('/tuitionClasses/{tuitionClass}/payment', [TuitionClassController::class, 'showPayments'])->name('tuitionClasses.payment');
+
+
+    Route::get('/tuitionClasses/{tuitionClass}/test', [TuitionClassController::class, 'showTests'])->name('tuitionClasses.test');
 });
 
 require __DIR__ . '/auth.php';

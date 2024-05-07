@@ -37,7 +37,7 @@ class TestController extends Controller
      */
     public function show(Test $test)
     {
-        //
+        return view('tests.show', compact('test'));
     }
 
     /**
@@ -45,7 +45,7 @@ class TestController extends Controller
      */
     public function edit(Test $test)
     {
-        //
+        return view('tests.edit', compact('test'));
     }
 
     /**

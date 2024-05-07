@@ -7,8 +7,10 @@
                     <div>
                         <a href="{{ route('tuitionClasses.attendance', $tuitionClass) }}"
                             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">Attendance</a>
-                        {{-- <a href="{{ route('tuitionClasses.payment', $tuitionClass) }}"
-                            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Test</a> --}}
+                        <a href="{{ route('tuitionClasses.payment', $tuitionClass) }}"
+                            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Payment</a>
+                            <a href="{{ route('tuitionClasses.test', $tuitionClass) }}"
+                                class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded ml-2">Test</a>
                     </div>
                 </div>
                 <p class="mb-2">Center Name: {{ $tuitionClass->center->name }}</p>

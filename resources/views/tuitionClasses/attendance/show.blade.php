@@ -3,7 +3,12 @@
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="overflow-hidden bg-gray-700 p-4 sm:rounded-lg">
                 <div class="flex justify-between items-center">
-                    <h1 class="text-2xl font-bold mb-4">Tuition Class Details</h1>
+                    <h1 class="text-2xl font-bold mb-4">
+                        <a href="{{ route('tuitionClasses.show', $tuitionClass->id) }}"
+                            class="text-blue-500 hover:underline">
+                            Tuition Class Details
+                        </a>
+                    </h1>
                     <div>
                         <a href="{{ route('tuitionClasses.attendance.create', $tuitionClass->id) }}"
                             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -21,18 +26,17 @@
                         $grouped = $classDays->groupBy(function ($item, $key) {
                             return \Carbon\Carbon::parse($item->date)->format('F Y');
                         });
+
+                        foreach ($grouped as $month => $days) {
+                            $grouped[$month] = $days->sortBy(function ($classDay) {
+                                return \Carbon\Carbon::parse($classDay->date);
+                            });
+                        }
                     @endphp
 
                     @foreach ($grouped as $month => $days)
                         <h2>{{ $month }}</h2>
                         <table class="table-auto dark:text-gray-200">
-                            <thead>
-                                {{-- <tr>
-                                    @foreach ($days as $classDay)
-                                        <th class="px-4 py-2">Date</th>
-                                    @endforeach
-                                </tr> --}}
-                            </thead>
                             <tbody>
                                 <tr>
                                     @foreach ($days as $classDay)
