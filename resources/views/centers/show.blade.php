@@ -25,15 +25,14 @@
                             </div>
                             <div>{{ $center->address }}</div>
                             <h2 class="text-xl font-bold mt-4">Tuition Classes</h2>
-                            <ul class="list-disc list-inside">
+                            <div class="flex flex-wrap">
                                 @foreach ($tuitionClasses as $class)
-                                    <li class="mt-2 flex items-center space-x-2">
-                                        <a href="{{ route('tuitionClasses.show', $class) }}"
-                                            class="font-bold">{{ $class->grade }}</a> -
-                                        <p>{{ $class->year }}</p>
-                                    </li>
+                                    <a href="{{ route('tuitionClasses.show', $class) }}"
+                                        class="{{ $class->year == date('Y') ? 'bg-blue-500 hover:bg-blue-700' : 'bg-gray-500 hover:bg-gray-700' }} text-white font-bold py-2 px-4 m-2 rounded">
+                                        {{ $class->grade }} - {{ $class->year }}
+                                    </a>
                                 @endforeach
-                            </ul>
+                            </div>
                         </div>
                     </div>
                 </div>

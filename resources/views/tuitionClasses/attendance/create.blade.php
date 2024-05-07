@@ -3,7 +3,12 @@
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="overflow-hidden bg-gray-700 p-4 sm:rounded-lg">
                 <div class="flex justify-between items-center">
-                    <h1 class="text-2xl font-bold mb-4">Tuition Class Details</h1>
+                    <h1 class="text-2xl font-bold mb-4">
+                        <a href="{{ route('tuitionClasses.show', $tuitionClass->id) }}"
+                            class="text-blue-500 hover:underline">
+                            Tuition Class Details
+                        </a>
+                    </h1>
                 </div>
                 <p class="mb-2">Center Name: {{ $tuitionClass->center->name }}</p>
                 <p class="mb-2">Class Grade: {{ $tuitionClass->grade }}</p>

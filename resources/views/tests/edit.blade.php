@@ -4,9 +4,9 @@
             <div class="overflow-hidden bg-gray-700 p-4 sm:rounded-lg">
                 <div class="flex justify-between items-center">
                     <h1 class="text-2xl font-bold mb-4">
-                        <a href="{{ route('tuitionClasses.test', $test->tuition_class_id) }}"
-                            class="text-white hover:underline">
-                            Tuition Class Tests
+                        <a href="{{ route('tuitionClasses.show', $test->tuitionClass->id) }}"
+                            class="text-blue-500 hover:underline">
+                            Tuition Class Details
                         </a>
                     </h1>
 
