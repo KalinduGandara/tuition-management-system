@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
 
         $grades = ['11', '10', '9', '8', '7', '6'];
         $testTypes = ['Multiple Master', 'Lesson Test Master', 'Term Test Master'];
-        $months = ['01', '02', '03', '04', '05'];
+        $months = ['1', '2', '3', '4', '5'];
         for ($center = 0; $center < 2; $center++) {
             for ($grade = 0; $grade < 6; $grade++) {
                 $class = TuitionClass::factory()->create([
