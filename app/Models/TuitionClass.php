@@ -9,6 +9,7 @@ class TuitionClass extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['grade', 'year', 'center_id'];
     public function center()
     {
         return $this->belongsTo(Center::class);

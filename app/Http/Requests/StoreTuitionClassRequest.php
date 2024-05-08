@@ -24,7 +24,6 @@ class StoreTuitionClassRequest extends FormRequest
         return [
             'grade' => ['required', 'string', 'max:255'],
             'year' => ['required', 'integer'],
-            'center_id' => ['required', 'exists:centers,id'],
         ];
     }
 }

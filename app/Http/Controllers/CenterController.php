@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Center;
 use App\Http\Requests\StoreCenterRequest;
+use App\Http\Requests\StoreTuitionClassRequest;
 use App\Http\Requests\UpdateCenterRequest;
+use App\Models\TuitionClass;
 
 class CenterController extends Controller
 {
@@ -74,5 +76,21 @@ class CenterController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Cannot delete th center ' . $center->name . ' because it has associated tuition classes.');
         }
+    }
+
+    public function createTuitionClass(Center $center)
+    {
+        return view('centers.createTuitionClass', compact('center'));
+    }
+
+    public function storeTuitionClass(Center $center, StoreTuitionClassRequest $request)
+    {
+        $data = $request->validated();
+        TuitionClass::create([
+            'center_id' => $center->id,
+            'grade' => $data['grade'],
+            'year' => $data['year'],
+        ]);
+        return redirect()->route('centers.show', $center)->with('success', 'Tuition class created successfully.');
     }
 }

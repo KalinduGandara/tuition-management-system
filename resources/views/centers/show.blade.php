@@ -8,6 +8,10 @@
                             <div class="flex justify-between items-center">
                                 <div class="text-2xl font-bold">{{ $center->name }}</div>
                                 <div>
+                                    <a href="{{ route('centers.tuitionClasses.create', $center) }}"
+                                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">
+                                        Create Class
+                                    </a>
                                     <a href="{{ route('centers.edit', $center) }}"
                                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">
                                         Edit

@@ -33,6 +33,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('attendances', AttendanceController::class);
     Route::resource('classDays', ClassDayController::class);
 
+    Route::get('/center/{center}/tuitionClasses/create', [CenterController::class, 'createTuitionClass'])->name('centers.tuitionClasses.create');
+    Route::post('/center/{center}/tuitionClasses/create', [CenterController::class, 'storeTuitionClass'])->name('centers.tuitionClasses.store');
+
     Route::get('/tuitionClasses/{tuitionClass}/attendance', [TuitionClassController::class, 'showClassDays'])->name('tuitionClasses.attendance');
     Route::get('/tuitionClasses/{tuitionClass}/attendance/create', [TuitionClassController::class, 'createClassDay'])->name('tuitionClasses.attendance.create');
     Route::post('/tuitionClasses/{tuitionClass}/attendance/create', [TuitionClassController::class, 'storeClassDay'])->name('tuitionClasses.attendance.store');
