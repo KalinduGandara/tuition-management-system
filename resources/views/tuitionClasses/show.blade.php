@@ -16,8 +16,9 @@
                             class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Payment</a>
                         <a href="{{ route('tuitionClasses.test', $tuitionClass) }}"
                             class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded ml-2">Test</a>
-                        <form action="{{ route('tuitionClasses.destroy', $tuitionClass) }}" method="POST"
-                            class="inline">
+                        <form action="{{ route('tuitionClasses.destroy', $tuitionClass) }}"
+                            onsubmit="return confirm('Are you sure you want to delete this tuition class?');"
+                            method="POST" class="inline">
                             @csrf
                             @method('DELETE')
                             <button type="submit"

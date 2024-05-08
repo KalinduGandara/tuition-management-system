@@ -21,6 +21,7 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit"
+                                            onsubmit="return confirm('Are you sure you want to delete this center?');"
                                             class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                                             Delete
                                         </button>

@@ -9,7 +9,8 @@
                             Tuition Class Details
                         </a>
                     </h1>
-                    <form action="{{ route('classDays.destroy', $classDay) }}" method="POST">
+                    <form action="{{ route('classDays.destroy', $classDay) }}"
+                        onsubmit="return confirm('Are you sure you want to delete this class day?');" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit"

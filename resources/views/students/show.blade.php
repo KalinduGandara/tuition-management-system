@@ -7,9 +7,20 @@
                         <!-- Student Information -->
                         <div class="w-full md:w-1/2 px-2 mb-4 md:mb-0">
                             <div class="p-4 bg-gray-800 rounded shadow">
-                                <h2 class="font-semibold text-xl leading-tight">
-                                    {{ $student->name }}
-                                </h2>
+                                <div class="flex justify-between items-center">
+                                    <h2 class="font-semibold text-xl leading-tight">
+                                        {{ $student->name }}
+                                    </h2>
+                                    <form action="{{ route('students.destroy', $student) }}" method="POST"
+                                        onsubmit="return confirm('Are you sure you want to delete this student?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
                                 <ul class="list-disc pl-5 mt-4">
                                     <div class="mt-6">
                                         <ul class="list-disc pl-5">

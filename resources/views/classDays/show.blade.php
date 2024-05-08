@@ -14,7 +14,9 @@
                             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block">
                             Edit
                         </a>
-                        <form action="{{ route('classDays.destroy', $classDay) }}" method="POST" class="inline">
+                        <form action="{{ route('classDays.destroy', $classDay) }}"
+                            onsubmit="return confirm('Are you sure you want to delete this class day?');" method="POST"
+                            class="inline">
                             @csrf
                             @method('DELETE')
                             <button type="submit"
