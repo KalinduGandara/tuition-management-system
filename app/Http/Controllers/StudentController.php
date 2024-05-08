@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use App\Models\Registration;
 use DateTime;
 
 class StudentController extends Controller
@@ -24,7 +25,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
+        return view('students.create');
     }
 
     /**
@@ -32,7 +33,13 @@ class StudentController extends Controller
      */
     public function store(StoreStudentRequest $request)
     {
-        //
+        $data = $request->validated();
+        Student::create($data);
+        Registration::create([
+            'student_id' => Student::latest()->first()->id,
+            'tuition_class_id' => $data['tuition_class_id'],
+        ]);
+        return redirect()->route('students.index')->with('success', 'Student created successfully.');
     }
 
     /**
