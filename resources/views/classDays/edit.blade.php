@@ -48,7 +48,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($attendances as $attendance)
+                                @foreach ($classDay->attendances as $attendance)
                                     <tr>
                                         <td class="border px-4 py-2">{{ $attendance->registration->student->name }}</td>
                                         <td class="border px-4 py-2">

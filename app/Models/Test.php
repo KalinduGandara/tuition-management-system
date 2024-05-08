@@ -9,6 +9,8 @@ class Test extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['tuition_class_id', 'date', 'type'];
+
     public function tuitionClass()
     {
         return $this->belongsTo(TuitionClass::class);

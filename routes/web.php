@@ -41,6 +41,8 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('/tuitionClasses/{tuitionClass}/test', [TuitionClassController::class, 'showTests'])->name('tuitionClasses.test');
+    Route::get('/tuitionClasses/{tuitionClass}/test/create', [TuitionClassController::class, 'createTest'])->name('tuitionClasses.test.create');
+    Route::post('/tuitionClasses/{tuitionClass}/test/create', [TuitionClassController::class, 'storeTest'])->name('tuitionClasses.test.store');
 });
 
 require __DIR__ . '/auth.php';

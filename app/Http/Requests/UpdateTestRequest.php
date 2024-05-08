@@ -11,7 +11,7 @@ class UpdateTestRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,24 @@ class UpdateTestRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'marks' => 'required|array',
+            'marks.*' => 'required|numeric|min:0|max:100',
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'marks.required' => 'Marks are required',
+            'marks.*.required' => 'Marks are required',
+            'marks.*.numeric' => 'Marks must be a number',
+            'marks.*.min' => 'Marks must be at least 0',
+            'marks.*.max' => 'Marks must be at most 100',
         ];
     }
 }

@@ -53,7 +53,13 @@ class TestController extends Controller
      */
     public function update(UpdateTestRequest $request, Test $test)
     {
-        //
+        foreach ($test->testMarks as $testMark) {
+            $testMark->update([
+                'mark' => $request->marks[$testMark->registration_id],
+            ]);
+        }
+
+        return redirect()->route('tests.show', $test)->with('success', 'Test marks updated successfully');
     }
 
     /**

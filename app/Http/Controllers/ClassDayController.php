@@ -49,9 +49,7 @@ class ClassDayController extends Controller
      */
     public function edit(ClassDay $classDay)
     {
-        $attendances = Attendance::where('class_day_id', $classDay->id)->get();
-
-        return view('classDays.edit', compact('attendances', 'classDay'));
+        return view('classDays.edit', compact('classDay'));
     }
 
     /**
@@ -64,7 +62,7 @@ class ClassDayController extends Controller
         }
 
 
-        return redirect()->route('classDays.edit', $classDay)->with('success', 'Class day updated successfully.');
+        return redirect()->route('classDays.show', $classDay)->with('success', 'Class day updated successfully.');
     }
 
     /**

@@ -9,6 +9,8 @@ class TestMark extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['registration_id', 'test_id', 'mark'];
+
     public function registration()
     {
         return $this->belongsTo(Registration::class);

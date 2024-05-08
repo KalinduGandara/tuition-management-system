@@ -33,9 +33,13 @@
                                 <tr>
                                     <td class="text-center">{{ $testMark->registration->student->name }}</td>
                                     <td class="text-center">
-                                        <input type="number" name="marks[{{ $testMark->registration->student_id }}]"
-                                            value="{{ $testMark->mark }}"
+                                        <input type="number" name="marks[{{ $testMark->registration_id }}]"
+                                            value="{{ old('marks.' . $testMark->registration_id, $testMark->mark) }}"
                                             class="w-1/4 bg-gray-800 text-white p-2 rounded">
+
+                                        @error('marks.' . $testMark->registration_id)
+                                            <p class="text-red-500">{{ $message }}</p>
+                                        @enderror
                                     </td>
                                 </tr>
                             @endforeach

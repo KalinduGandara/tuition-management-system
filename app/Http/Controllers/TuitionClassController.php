@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreClassDayRequest;
+use App\Http\Requests\StoreTestRequest;
 use App\Models\TuitionClass;
 use App\Http\Requests\StoreTuitionClassRequest;
 use App\Http\Requests\UpdateTuitionClassRequest;
 use App\Models\Attendance;
 use App\Models\ClassDay;
+use App\Models\Test;
+use App\Models\TestMark;
+use Illuminate\Support\Facades\DB;
 
 class TuitionClassController extends Controller
 {
@@ -108,8 +112,6 @@ class TuitionClassController extends Controller
     {
         $registrations = $tuitionClass->registrations;
 
-        // dd($request->attendances[$registrations[0]->id]);
-        // dd($tuitionClass->id);
         $classDay = ClassDay::create([
             'tuition_class_id' => $tuitionClass->id,
             'date' => $request->date,
@@ -137,5 +139,31 @@ class TuitionClassController extends Controller
     {
         $tests = $tuitionClass->tests;
         return view('tuitionClasses.test.show', compact('tuitionClass', 'tests'));
+    }
+
+    public function createTest(TuitionClass $tuitionClass)
+    {
+        $registrations = $tuitionClass->registrations;
+        return view('tuitionClasses.test.create', compact('tuitionClass', 'registrations'));
+    }
+
+    public function storeTest(StoreTestRequest $request, TuitionClass $tuitionClass)
+    {
+        DB::transaction(function () use ($request, $tuitionClass) {
+            $test = Test::create([
+                'tuition_class_id' => $tuitionClass->id,
+                'date' => $request->date,
+                'type' => $request->type,
+            ]);
+
+            foreach ($request->marks as $registrationId => $mark) {
+                TestMark::create([
+                    'test_id' => $test->id,
+                    'registration_id' => $registrationId,
+                    'mark' => $mark,
+                ]);
+            }
+        });
+        return redirect()->route('tuitionClasses.test', $tuitionClass)->with('success', 'Test created successfully');
     }
 }
