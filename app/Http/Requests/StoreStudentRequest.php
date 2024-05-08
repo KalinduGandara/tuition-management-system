@@ -22,11 +22,9 @@ class StoreStudentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'phone' => 'required|string|max:255',
-            'address' => 'required|string|max:255',
-            'tuition_class_id' => 'required|exists:tuition_classes,id',
+            'name' => ['required', 'string'],
+            'student_index' => ['required', 'string', 'unique:students'],
+            'tuition_class_id' => ['required', 'exists:tuition_classes,id'],
         ];
     }
 }

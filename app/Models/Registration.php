@@ -9,6 +9,11 @@ class Registration extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'student_id',
+        'tuition_class_id',
+    ];
+
     public function student()
     {
         return $this->belongsTo(Student::class);

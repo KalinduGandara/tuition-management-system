@@ -20,7 +20,6 @@ class StudentFactory extends Factory
             'name' => $this->faker->name(),
             'student_index' => $this->faker->unique()->randomNumber(5),
             'address' => $this->faker->address(),
-            'grade' => $this->faker->randomElement(['11', '10', '9', '8', '7', '6']),
             'whatsapp_no' => $this->faker->phoneNumber(),
             'mother_name' => $this->faker->name(),
             'mother_phone' => $this->faker->phoneNumber(),

@@ -80,7 +80,7 @@ class CenterController extends Controller
 
     public function createTuitionClass(Center $center)
     {
-        return view('centers.createTuitionClass', compact('center'));
+        return view('centers.tuitionClass.create', compact('center'));
     }
 
     public function storeTuitionClass(Center $center, StoreTuitionClassRequest $request)

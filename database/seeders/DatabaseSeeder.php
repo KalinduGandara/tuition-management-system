@@ -97,9 +97,6 @@ class DatabaseSeeder extends Seeder
                         'student_id' => $students[$i]->id,
                         'tuition_class_id' => $class->id,
                     ]);
-                    Student::where('id', $students[$i]->id)->update([
-                        'registration_id' => $registration->id,
-                    ]);
 
                     foreach ($tests as $test) {
                         $randomMark = rand(0, 100);

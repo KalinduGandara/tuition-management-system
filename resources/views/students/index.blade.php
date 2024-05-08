@@ -3,9 +3,15 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-gray-700 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-gray-800 text-white border-b border-gray-200">
-                    <h2 class="font-semibold text-xl leading-tight">
-                        Students
-                    </h2>
+                    <div class="flex justify-between items-center">
+                        <h2 class="font-semibold text-xl leading-tight">
+                            Students
+                        </h2>
+                        <a href="{{ route('students.create') }}"
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">
+                            Create Student
+                        </a>
+                    </div>
                     <div class="mt-6">
                         <input type="text" id="search" placeholder="Search..."
                             class="rounded-md shadow-sm my-1 block border-gray-500 bg-gray-600 flex-grow mr-2 w-full">

@@ -6,7 +6,9 @@ use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Models\Registration;
+use App\Models\TuitionClass;
 use DateTime;
+use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
 {
@@ -25,20 +27,25 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('students.create');
+        $tuitionClasses = TuitionClass::all();
+        return view('students.create', compact('tuitionClasses'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(StoreStudentRequest $request)
     {
         $data = $request->validated();
-        Student::create($data);
-        Registration::create([
-            'student_id' => Student::latest()->first()->id,
-            'tuition_class_id' => $data['tuition_class_id'],
-        ]);
+        DB::transaction(function () use ($data) {
+            $student = Student::create($data);
+            Registration::create([
+                'student_id' => $student->id,
+                'tuition_class_id' => $data['tuition_class_id'],
+            ]);
+        });
+
         return redirect()->route('students.index')->with('success', 'Student created successfully.');
     }
 
