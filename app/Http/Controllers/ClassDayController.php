@@ -38,10 +38,10 @@ class ClassDayController extends Controller
      */
     public function show(ClassDay $classDay)
     {
-        // $attendances = Attendance::where('class_day_id', $classDay->id)->get();
-        // return view('classDays.show', compact('attendances', 'classDay'));
+        $attendances = Attendance::where('class_day_id', $classDay->id)->get();
+        return view('classDays.show', compact('attendances', 'classDay'));
 
-        return redirect()->route('classDays.edit', $classDay);
+        // return redirect()->route('classDays.edit', $classDay);
     }
 
     /**
@@ -50,10 +50,8 @@ class ClassDayController extends Controller
     public function edit(ClassDay $classDay)
     {
         $attendances = Attendance::where('class_day_id', $classDay->id)->get();
-        $students = $classDay->tuitionClass->registrations->map(function ($registration) {
-            return $registration->student;
-        });
-        return view('classDays.edit', compact('attendances', 'classDay', 'students'));
+
+        return view('classDays.edit', compact('attendances', 'classDay'));
     }
 
     /**

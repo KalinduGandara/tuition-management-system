@@ -3,14 +3,26 @@
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="overflow-hidden bg-gray-700 p-4 sm:rounded-lg">
                 <div class="flex justify-between items-center">
-                    <h1 class="text-2xl font-bold mb-4">Tuition Class Details</h1>
-                    <form action="{{ route('classDays.destroy', $classDay) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                            Delete
-                        </button>
-                    </form>
+                    <h1 class="text-2xl font-bold mb-4">
+                        <a href="{{ route('tuitionClasses.show', $classDay->tuitionClass->id) }}"
+                            class="text-blue-500 hover:underline">
+                            Tuition Class Details
+                        </a>
+                    </h1>
+                    <div>
+                        <a href="{{ route('classDays.edit', $classDay) }}"
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block">
+                            Edit
+                        </a>
+                        <form action="{{ route('classDays.destroy', $classDay) }}" method="POST" class="inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit"
+                                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded inline-block">
+                                Delete
+                            </button>
+                        </form>
+                    </div>
                 </div>
                 <p class="mb-2">Center Name: {{ $classDay->tuitionClass->center->name }}</p>
                 <p class="mb-2">Class Grade: {{ $classDay->tuitionClass->grade }}</p>
@@ -35,7 +47,8 @@
                                     <td class="border px-4 py-2">
                                         {{ $attendance->registration->student->name }}
                                     </td>
-                                    <td class="border px-4 py-2">
+                                    <td
+                                        class="border px-4 py-2 {{ $attendance->status == 'Absent' ? 'text-red-500' : '' }}">
                                         {{ $attendance->status }}
                                     </td>
                                 </tr>
@@ -44,4 +57,6 @@
                     </table>
                 </div>
             </div>
+        </div>
+    </div>
 </x-app-layout>

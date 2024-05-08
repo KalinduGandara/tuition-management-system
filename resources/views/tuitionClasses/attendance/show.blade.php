@@ -41,7 +41,8 @@
                                 <tr>
                                     @foreach ($days as $classDay)
                                         <td class="border px-4 py-2">
-                                            <a href="classDays/{{ $classDay->id }}">{{ $classDay->date }}</a>
+                                            <a href="{{ route('classDays.show', $classDay) }}"> {{ $classDay->date }}
+                                            </a>
                                             @if ($classDay->date == now()->format('Y-m-d'))
                                                 (Today)
                                             @endif

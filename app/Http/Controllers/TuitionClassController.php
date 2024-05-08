@@ -43,20 +43,19 @@ class TuitionClassController extends Controller
 
     public function show(TuitionClass $tuitionClass)
     {
-        // TODO: refactor this
         $registrations = $tuitionClass->registrations;
-        $classDays = $tuitionClass->classdays
-            ->where('date', '>=', date('Y-m-01'))
-            ->where('date', '<=', date('Y-m-t'))
-            ->sortBy('id')
-            ->take(5);
-        $classDays_ids = $classDays->pluck('id');
+        $classDays = $tuitionClass->classdays->filter(function ($classday) {
+            return \Carbon\Carbon::parse($classday->date)->gte(\Carbon\Carbon::now()->startOfMonth()) &&
+                \Carbon\Carbon::parse($classday->date)->lte(\Carbon\Carbon::now()->endOfMonth());
+        });
 
-        $students = $registrations->map(function ($registration) use ($classDays_ids) {
+        $students = $registrations->map(function ($registration) {
             $student = $registration->student;
             $student->payments = $registration->payments->where('month', date('m'));
-            $student->attendances = $registration->attendances->whereIn('class_day_id', $classDays_ids)->sortBy('class_day_id');
-
+            $student->attendances = $registration->attendances->filter(function ($attendance) {
+                return \Carbon\Carbon::parse($attendance->classDay->date)->gte(\Carbon\Carbon::now()->startOfMonth()) &&
+                    \Carbon\Carbon::parse($attendance->classDay->date)->lte(\Carbon\Carbon::now()->endOfMonth());
+            });
             return $student;
         });
 

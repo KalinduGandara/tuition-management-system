@@ -3,11 +3,17 @@
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="overflow-hidden bg-gray-700 p-4 sm:rounded-lg">
                 <div class="flex justify-between items-center">
-                    <h1 class="text-2xl font-bold mb-4">Tuition Class Details</h1>
+                    <h1 class="text-2xl font-bold mb-4">
+                        <a href="{{ route('tuitionClasses.show', $classDay->tuitionClass->id) }}"
+                            class="text-blue-500 hover:underline">
+                            Tuition Class Details
+                        </a>
+                    </h1>
                     <form action="{{ route('classDays.destroy', $classDay) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                        <button type="submit"
+                            class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                             Delete
                         </button>
                     </form>
