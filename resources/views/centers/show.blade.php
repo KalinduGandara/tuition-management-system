@@ -34,7 +34,8 @@
                                 @foreach ($tuitionClasses as $class)
                                     <a href="{{ route('tuitionClasses.show', $class) }}"
                                         class="{{ $class->year == date('Y') ? 'bg-blue-500 hover:bg-blue-700' : 'bg-gray-500 hover:bg-gray-700' }} text-white font-bold py-2 px-4 m-2 rounded">
-                                        Grade {{ $class->grade }} - {{ $class->year }}
+                                        Grade {{ $class->grade }}
+                                        {{ $class->year != date('Y') ? '(' . $class->year . ')' : '' }}
                                     </a>
                                 @endforeach
                             </div>
