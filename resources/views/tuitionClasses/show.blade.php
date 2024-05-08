@@ -16,6 +16,13 @@
                             class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Payment</a>
                         <a href="{{ route('tuitionClasses.test', $tuitionClass) }}"
                             class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded ml-2">Test</a>
+                        <form action="{{ route('tuitionClasses.destroy', $tuitionClass) }}" method="POST"
+                            class="inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit"
+                                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2">Delete</button>
+                        </form>
                     </div>
                 </div>
                 <p class="mb-2">Center Name: {{ $tuitionClass->center->name }}</p>

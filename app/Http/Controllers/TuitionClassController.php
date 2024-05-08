@@ -88,7 +88,10 @@ class TuitionClassController extends Controller
      */
     public function destroy(TuitionClass $tuitionClass)
     {
-        //
+        $center_id = $tuitionClass->center_id;
+        TuitionClass::destroy($tuitionClass->id);
+
+        return redirect()->route('centers.show', $center_id)->with('success', 'Tuition class deleted successfully');
     }
 
     public function showClassDays(TuitionClass $tuitionClass)
